@@ -137,67 +137,67 @@ const options = {
     zoom: 5,
 };
 
-let map; // Variabel untuk menyimpan instance peta
-let windyContainer; // Variabel untuk menyimpan elemen container Windy
-let mapCard; // Variabel untuk menyimpan elemen card map
-let isWindyVisible = true; // Status tampilan container Windy
+// let map; // Variabel untuk menyimpan instance peta
+// let windyContainer; // Variabel untuk menyimpan elemen container Windy
+// let mapCard; // Variabel untuk menyimpan elemen card map
+// let isWindyVisible = true; // Status tampilan container Windy
 
-// Initialize Windy API
-function initializeWindy() {
-    windyInit(options, windyAPI => {
-        const { picker, utils, broadcast, store } = windyAPI;
+// // Initialize Windy API
+// function initializeWindy() {
+//     windyInit(options, windyAPI => {
+//         const { picker, utils, broadcast, store } = windyAPI;
 
-        picker.on('pickerOpened', ({ lat, lon, values, overlay }) => {
-            // -> 48.4, 14.3, [ U,V, ], 'wind'
-            console.log('opened', lat, lon, values, overlay);
+//         picker.on('pickerOpened', ({ lat, lon, values, overlay }) => {
+//             // -> 48.4, 14.3, [ U,V, ], 'wind'
+//             console.log('opened', lat, lon, values, overlay);
 
-            const windObject = utils.wind2obj(values);
-            console.log(windObject);
-        });
+//             const windObject = utils.wind2obj(values);
+//             console.log(windObject);
+//         });
 
-        picker.on('pickerMoved', ({ lat, lon, values, overlay }) => {
-            // picker was dragged by user to latLon coords
-            console.log('moved', lat, lon, values, overlay);
-        });
+//         picker.on('pickerMoved', ({ lat, lon, values, overlay }) => {
+//             // picker was dragged by user to latLon coords
+//             console.log('moved', lat, lon, values, overlay);
+//         });
 
-        picker.on('pickerClosed', () => {
-            // picker was closed
-        });
+//         picker.on('pickerClosed', () => {
+//             // picker was closed
+//         });
 
-        store.on('pickerLocation', ({ lat, lon }) => {
-            console.log(lat, lon);
+//         store.on('pickerLocation', ({ lat, lon }) => {
+//             console.log(lat, lon);
 
-            const { values, overlay } = picker.getParams();
-            console.log('location changed', lat, lon, values, overlay);
-        });
+//             const { values, overlay } = picker.getParams();
+//             console.log('location changed', lat, lon, values, overlay);
+//         });
 
-        // Wait since weather is rendered
-        broadcast.once('redrawFinished', () => {
-            // Opening of a picker (async)
-            picker.open({ lat: -0.2159, lon: 100.6334 });
-        });
+//         // Wait since weather is rendered
+//         broadcast.once('redrawFinished', () => {
+//             // Opening of a picker (async)
+//             picker.open({ lat: -0.2159, lon: 100.6334 });
+//         });
 
-        map = windyAPI.map;
-        // .map is an instance of Leaflet map
+//         map = windyAPI.map;
+//         // .map is an instance of Leaflet map
 
-        // Tambahkan pengecekan saat peta diinisialisasi
-        if (!isWindyVisible) {
-            map.remove(); // Hilangkan peta jika container Windy tidak terlihat
-            hideMapCard(); // Sembunyikan card map saat peta dihilangkan
-        }
+//         // Tambahkan pengecekan saat peta diinisialisasi
+//         if (!isWindyVisible) {
+//             map.remove(); // Hilangkan peta jika container Windy tidak terlihat
+//             hideMapCard(); // Sembunyikan card map saat peta dihilangkan
+//         }
 
-        // Memperbarui picker saat waktu berubah
-        setInterval(() => {
-            const timestamp = store.get('timestamp');
-            if (timestamp) {
-                picker.setTime(timestamp);
-            }
-        }, 1000); // Ubah interval sesuai dengan kebutuhan Anda
-    });
-}
+//         // Memperbarui picker saat waktu berubah
+//         setInterval(() => {
+//             const timestamp = store.get('timestamp');
+//             if (timestamp) {
+//                 picker.setTime(timestamp);
+//             }
+//         }, 1000); // Ubah interval sesuai dengan kebutuhan Anda
+//     });
+// }
 
-// Panggil fungsi inisialisasi Windy saat halaman dimuat
-initializeWindy();
+// // Panggil fungsi inisialisasi Windy saat halaman dimuat
+// initializeWindy();
 
 
 // Tambahkan event listener untuk tombol Harian dan Mingguan
