@@ -56,9 +56,9 @@ setInterval(() => {
 // function to get public ip address
 function getPublicIp() {
     fetch("https://geolocation-db.com/json/", {
-            method: "GET",
-            headers: {},
-        })
+        method: "GET",
+        headers: {},
+    })
         .then((response) => response.json())
         .then((data) => {
             currentCity = data.city;
@@ -74,11 +74,11 @@ getPublicIp();
 // function to get weather data
 function getWeatherData(city, unit, hourlyorWeek) {
     fetch(
-            `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=T5VY9TGHR67HGL7VFC7656X6L&contentType=json`, {
-                method: "GET",
-                headers: {},
-            }
-        )
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=T5VY9TGHR67HGL7VFC7656X6L&contentType=json`, {
+        method: "GET",
+        headers: {},
+    }
+    )
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Kesalahan saat memuat data cuaca");
@@ -137,67 +137,67 @@ const options = {
     zoom: 5,
 };
 
-let map; // Variabel untuk menyimpan instance peta
-let windyContainer; // Variabel untuk menyimpan elemen container Windy
-let mapCard; // Variabel untuk menyimpan elemen card map
-let isWindyVisible = true; // Status tampilan container Windy
+// let map; // Variabel untuk menyimpan instance peta
+// let windyContainer; // Variabel untuk menyimpan elemen container Windy
+// let mapCard; // Variabel untuk menyimpan elemen card map
+// let isWindyVisible = true; // Status tampilan container Windy
 
-// Initialize Windy API
-function initializeWindy() {
-    windyInit(options, windyAPI => {
-        const { picker, utils, broadcast, store } = windyAPI;
+// // Initialize Windy API
+// function initializeWindy() {
+//     windyInit(options, windyAPI => {
+//         const { picker, utils, broadcast, store } = windyAPI;
 
-        picker.on('pickerOpened', ({ lat, lon, values, overlay }) => {
-            // -> 48.4, 14.3, [ U,V, ], 'wind'
-            console.log('opened', lat, lon, values, overlay);
+//         picker.on('pickerOpened', ({ lat, lon, values, overlay }) => {
+//             // -> 48.4, 14.3, [ U,V, ], 'wind'
+//             console.log('opened', lat, lon, values, overlay);
 
-            const windObject = utils.wind2obj(values);
-            console.log(windObject);
-        });
+//             const windObject = utils.wind2obj(values);
+//             console.log(windObject);
+//         });
 
-        picker.on('pickerMoved', ({ lat, lon, values, overlay }) => {
-            // picker was dragged by user to latLon coords
-            console.log('moved', lat, lon, values, overlay);
-        });
+//         picker.on('pickerMoved', ({ lat, lon, values, overlay }) => {
+//             // picker was dragged by user to latLon coords
+//             console.log('moved', lat, lon, values, overlay);
+//         });
 
-        picker.on('pickerClosed', () => {
-            // picker was closed
-        });
+//         picker.on('pickerClosed', () => {
+//             // picker was closed
+//         });
 
-        store.on('pickerLocation', ({ lat, lon }) => {
-            console.log(lat, lon);
+//         store.on('pickerLocation', ({ lat, lon }) => {
+//             console.log(lat, lon);
 
-            const { values, overlay } = picker.getParams();
-            console.log('location changed', lat, lon, values, overlay);
-        });
+//             const { values, overlay } = picker.getParams();
+//             console.log('location changed', lat, lon, values, overlay);
+//         });
 
-        // Wait since weather is rendered
-        broadcast.once('redrawFinished', () => {
-            // Opening of a picker (async)
-            picker.open({ lat: -0.2159, lon: 100.6334 });
-        });
+//         // Wait since weather is rendered
+//         broadcast.once('redrawFinished', () => {
+//             // Opening of a picker (async)
+//             picker.open({ lat: -0.2159, lon: 100.6334 });
+//         });
 
-        map = windyAPI.map;
-        // .map is an instance of Leaflet map
+//         map = windyAPI.map;
+//         // .map is an instance of Leaflet map
 
-        // Tambahkan pengecekan saat peta diinisialisasi
-        if (!isWindyVisible) {
-            map.remove(); // Hilangkan peta jika container Windy tidak terlihat
-            hideMapCard(); // Sembunyikan card map saat peta dihilangkan
-        }
+//         // Tambahkan pengecekan saat peta diinisialisasi
+//         if (!isWindyVisible) {
+//             map.remove(); // Hilangkan peta jika container Windy tidak terlihat
+//             hideMapCard(); // Sembunyikan card map saat peta dihilangkan
+//         }
 
-        // Memperbarui picker saat waktu berubah
-        setInterval(() => {
-            const timestamp = store.get('timestamp');
-            if (timestamp) {
-                picker.setTime(timestamp);
-            }
-        }, 1000); // Ubah interval sesuai dengan kebutuhan Anda
-    });
-}
+//         // Memperbarui picker saat waktu berubah
+//         setInterval(() => {
+//             const timestamp = store.get('timestamp');
+//             if (timestamp) {
+//                 picker.setTime(timestamp);
+//             }
+//         }, 1000); // Ubah interval sesuai dengan kebutuhan Anda
+//     });
+// }
 
-// Panggil fungsi inisialisasi Windy saat halaman dimuat
-initializeWindy();
+// // Panggil fungsi inisialisasi Windy saat halaman dimuat
+// initializeWindy();
 
 
 // Tambahkan event listener untuk tombol Harian dan Mingguan
@@ -479,7 +479,7 @@ searchForm.addEventListener("submit", (e) => {
 });
 
 var currentFocus;
-search.addEventListener("input", function(e) {
+search.addEventListener("input", function (e) {
     removeSuggestions();
     var a,
         b,
@@ -509,7 +509,7 @@ search.addEventListener("input", function(e) {
             /*insert a input field that will hold the current array item's value:*/
             b.innerHTML += "<input type='hidden' value='" + cities[i].name + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
-            b.addEventListener("click", function(e) {
+            b.addEventListener("click", function (e) {
                 /*insert the value for the autocomplete text field:*/
                 search.value = this.getElementsByTagName("input")[0].value;
                 removeSuggestions();
@@ -598,413 +598,413 @@ function changeTimeSpan(unit) {
 
 
 cities = [{
-        country: "IDN",
-        name: "Jakarta",
-        lat: "-6.1750",
-        lng: "106.8275",
-    },
-    {
-        country: "IDN",
-        name: "Surabaya",
-        lat: "-7.2458",
-        lng: "112.7378",
-    },
-    {
-        country: "IDN",
-        name: "Medan",
-        lat: "3.5894",
-        lng: "98.6739",
-    },
-    {
-        country: "IDN",
-        name: "Malang",
-        lat: "-7.9800",
-        lng: "112.6200",
-    },
-    {
-        country: "IDN",
-        name: "Bekasi",
-        lat: "-6.2349",
-        lng: "106.9923",
-    }, {
-        country: "IDN",
-        name: "Banda Aceh",
-        lat: "5.5500",
-        lng: "95.3175",
-    },
-    {
-        country: "IDN",
-        name: "Tangerang",
-        lat: "-6.1783",
-        lng: "106.6319",
-    },
-    {
-        country: "IDN",
-        name: "Denpasar",
-        lat: "-8.6500",
-        lng: "115.2167",
-    },
-    {
-        country: "IDN",
-        name: "Sangereng",
-        lat: "-6.2889",
-        lng: "106.7181",
-    },
-    {
-        country: "IDN",
-        name: "Semarang",
-        lat: "-6.9667",
-        lng: "110.4167",
-    },
-    {
-        country: "IDN",
-        name: "Palembang",
-        lat: "-2.9861",
-        lng: "104.7556",
-    }, {
-        country: "IDN",
-        name: "Makassar",
-        lat: "-5.1619",
-        lng: "119.4362",
-    }, {
-        country: "IDN",
-        name: "Jepara",
-        lat: "-6.5333",
-        lng: "110.6667",
-    }, {
-        country: "IDN",
-        name: "Sumedang",
-        lat: "-6.8400",
-        lng: "107.9208",
-    },
-    {
-        country: "IDN",
-        name: "Manokwari",
-        lat: "-0.8667",
-        lng: "134.0833",
-    },
-    {
-        country: "IDN",
-        name: "Cilacap",
-        lat: "-7.7167",
-        lng: "109.0170",
-    },
-    {
-        country: "IDN",
-        name: "Bogor",
-        lat: "-6.5966",
-        lng: "106.7972",
-    },
-    {
-        country: "IDN",
-        name: "Pekanbaru",
-        lat: "0.5092",
-        lng: "101.4453",
-    },
-    {
-        country: "IDN",
-        name: "Samarinda",
-        lat: "-0.5000",
-        lng: "117.1378",
-    },
-    {
-        country: "IDN",
-        name: "Banjarmasin",
-        lat: "-3.3200",
-        lng: "114.5925",
-    },
-    {
-        country: "",
-        name: "Tasikmalaya",
-        lat: "-7.3161",
-        lng: "108.1975",
-    },
-    {
-        country: "IDN",
-        name: "Pontianak",
-        lat: "-0.0206",
-        lng: "109.3414",
-    },
-    {
-        country: "IDN",
-        name: "Cimahi",
-        lat: "-6.8712",
-        lng: "107.5548",
-    },
-    {
-        country: "IDN",
-        name: "Serang",
-        lat: "-6.1200",
-        lng: "106.1503",
-    },
-    {
-        country: "IDN",
-        name: "Jambi",
-        lat: "-1.5900",
-        lng: "103.6100",
-    },
-    {
-        country: "IDN",
-        name: "Balikpapan",
-        lat: "-1.2768",
-        lng: "116.8277",
-    },
-    {
-        country: "IDN",
-        name: "Magelang",
-        lat: "-6.3528",
-        lng: "108.3242",
-    },
-    {
-        country: "IDN",
-        name: "Surakarta",
-        lat: "-7.5667",
-        lng: "110.8167",
-    },
-    {
-        country: "IDN",
-        name: "Lembok",
-        lat: "-8.5650",
-        lng: "116.3510",
-    },
-    {
-        country: "IDN",
-        name: "Manado",
-        lat: "1.4931",
-        lng: "124.8413",
-    },
-    {
-        country: "IDN",
-        name: "Bandung",
-        lat: "-6.9120",
-        lng: "107.6097",
-    },
-    {
-        country: "IDN",
-        name: "Kupang",
-        lat: "-10.1702",
-        lng: "123.6077",
-    },
-    {
-        country: "IDN",
-        name: "Yogyakarta",
-        lat: "-7.8014",
-        lng: "110.3644",
-    },
-    {
-        country: "IDN",
-        name: "Mataram",
-        lat: "-8.5833",
-        lng: "116.1167",
-    },
-    {
-        country: "IDN",
-        name: "Jayapura",
-        lat: "-2.5330",
-        lng: "140.7170",
-    },
-    {
-        country: "IDN",
-        name: "Cilegon",
-        lat: "-6.0027",
-        lng: "106.0112",
-    },
-    {
-        country: "IDN",
-        name: "Ambon",
-        lat: "-3.7000",
-        lng: "128.1667",
-    },
-    {
-        country: "IDN",
-        name: "Cibinong",
-        lat: "-6.4850",
-        lng: "106.8420",
-    },
-    {
-        country: "IDN",
-        name: "Bengkulu",
-        lat: "-3.7956",
-        lng: "102.2592",
-    },
-    {
-        country: "IDN",
-        name: "Majalengka",
-        lat: "-6.8353",
-        lng: "108.2278",
-    },
-    {
-        country: "IDN",
-        name: "Cimanggis",
-        lat: "-6.3645",
-        lng: "106.8591",
-    },
-    {
-        country: "IDN",
-        name: "Tegal",
-        lat: "-6.8667",
-        lng: "109.1333",
-    },
-    {
-        country: "IDN",
-        name: "Pematangsiantar",
-        lat: "2.9600",
-        lng: "99.0600",
-    },
-    {
-        country: "IDN",
-        name: "Jember",
-        lat: "-8.1727",
-        lng: "113.6873",
-    },
-    {
-        country: "IDN",
-        name: "Mamuju",
-        lat: "-2.6833",
-        lng: "118.9000",
-    },
-    {
-        country: "IDN",
-        name: "Sorong",
-        lat: "-0.8667",
-        lng: "131.2500",
-    },
-    {
-        country: "IDN",
-        name: "Binjai",
-        lat: "3.5986",
-        lng: "98.4803",
-    },
-    {
-        country: "IDN",
-        name: "Kediri",
-        lat: "-7.8111",
-        lng: "112.0047",
-    },
-    {
-        country: "IDN",
-        name: "Palangkaraya",
-        lat: "-2.2100",
-        lng: "113.9200",
-    },
-    {
-        country: "IDN",
-        name: "Singaraja",
-        lat: "-8.1167",
-        lng: "115.0833",
-    },
-    {
-        country: "IDN",
-        name: "Probolinggo",
-        lat: "-7.7500",
-        lng: "113.2167",
-    },
-    {
-        country: "IDN",
-        name: "Madiun",
-        lat: "-7.6300",
-        lng: "111.5231",
-    },
-    {
-        country: "IDN",
-        name: "Ternate",
-        lat: "0.7800",
-        lng: "127.3819",
-    },
-    {
-        country: "IDN",
-        name: "Tarakan",
-        lat: "3.3000",
-        lng: "117.6333",
-    },
-    {
-        country: "IDN",
-        name: "Gorontalo",
-        lat: "0.5333",
-        lng: "123.0667",
-    },
-    {
-        country: "IDN",
-        name: "Batu",
-        lat: "-7.8720",
-        lng: "112.5250",
-    },
-    {
-        country: "IDN",
-        name: "Curug",
-        lat: "-6.3711",
-        lng: "106.8000",
-    },
-    {
-        country: "IDN",
-        name: "Purwakarta",
-        lat: "-6.5533",
-        lng: "107.4472",
-    },
-    {
-        country: "IDN",
-        name: "Salatiga",
-        lat: "-7.3247",
-        lng: "110.5444",
-    },
-    {
-        country: "IDN",
-        name: "Cianjur",
-        lat: "-6.8200",
-        lng: "107.1408",
-    },
-    {
-        country: "IDN",
-        name: "Mojokerto",
-        lat: "-7.4722",
-        lng: "112.4336",
-    },
-    {
-        country: "IDN",
-        name: "Payakumbuh",
-        lat: "-0.2333",
-        lng: "100.6333",
-    },
-    {
-        country: "IDN",
-        name: "Garut",
-        lat: "-7.2167",
-        lng: "107.9000",
-    },
-    {
-        country: "IDN",
-        name: "Indramayu",
-        lat: "-6.3528",
-        lng: "108.3242",
-    },
-    {
-        country: "IDN",
-        name: "Karanganyar",
-        lat: "-7.6033",
-        lng: "110.9778",
-    },
-    {
-        country: "IDN",
-        name: "Bukittinggi",
-        lat: "-0.3097",
-        lng: "100.3753",
-    },
-    {
-        country: "IDN",
-        name: "Merauke",
-        lat: "-8.4932",
-        lng: "140.4018",
-    },
-    {
-        country: "IDN",
-        name: "",
-        lat: "",
-        lng: "",
-    },
-    {
-        country: "IDN",
-        name: "",
-        lat: "",
-        lng: "",
-    },
+    country: "IDN",
+    name: "Jakarta",
+    lat: "-6.1750",
+    lng: "106.8275",
+},
+{
+    country: "IDN",
+    name: "Surabaya",
+    lat: "-7.2458",
+    lng: "112.7378",
+},
+{
+    country: "IDN",
+    name: "Medan",
+    lat: "3.5894",
+    lng: "98.6739",
+},
+{
+    country: "IDN",
+    name: "Malang",
+    lat: "-7.9800",
+    lng: "112.6200",
+},
+{
+    country: "IDN",
+    name: "Bekasi",
+    lat: "-6.2349",
+    lng: "106.9923",
+}, {
+    country: "IDN",
+    name: "Banda Aceh",
+    lat: "5.5500",
+    lng: "95.3175",
+},
+{
+    country: "IDN",
+    name: "Tangerang",
+    lat: "-6.1783",
+    lng: "106.6319",
+},
+{
+    country: "IDN",
+    name: "Denpasar",
+    lat: "-8.6500",
+    lng: "115.2167",
+},
+{
+    country: "IDN",
+    name: "Sangereng",
+    lat: "-6.2889",
+    lng: "106.7181",
+},
+{
+    country: "IDN",
+    name: "Semarang",
+    lat: "-6.9667",
+    lng: "110.4167",
+},
+{
+    country: "IDN",
+    name: "Palembang",
+    lat: "-2.9861",
+    lng: "104.7556",
+}, {
+    country: "IDN",
+    name: "Makassar",
+    lat: "-5.1619",
+    lng: "119.4362",
+}, {
+    country: "IDN",
+    name: "Jepara",
+    lat: "-6.5333",
+    lng: "110.6667",
+}, {
+    country: "IDN",
+    name: "Sumedang",
+    lat: "-6.8400",
+    lng: "107.9208",
+},
+{
+    country: "IDN",
+    name: "Manokwari",
+    lat: "-0.8667",
+    lng: "134.0833",
+},
+{
+    country: "IDN",
+    name: "Cilacap",
+    lat: "-7.7167",
+    lng: "109.0170",
+},
+{
+    country: "IDN",
+    name: "Bogor",
+    lat: "-6.5966",
+    lng: "106.7972",
+},
+{
+    country: "IDN",
+    name: "Pekanbaru",
+    lat: "0.5092",
+    lng: "101.4453",
+},
+{
+    country: "IDN",
+    name: "Samarinda",
+    lat: "-0.5000",
+    lng: "117.1378",
+},
+{
+    country: "IDN",
+    name: "Banjarmasin",
+    lat: "-3.3200",
+    lng: "114.5925",
+},
+{
+    country: "",
+    name: "Tasikmalaya",
+    lat: "-7.3161",
+    lng: "108.1975",
+},
+{
+    country: "IDN",
+    name: "Pontianak",
+    lat: "-0.0206",
+    lng: "109.3414",
+},
+{
+    country: "IDN",
+    name: "Cimahi",
+    lat: "-6.8712",
+    lng: "107.5548",
+},
+{
+    country: "IDN",
+    name: "Serang",
+    lat: "-6.1200",
+    lng: "106.1503",
+},
+{
+    country: "IDN",
+    name: "Jambi",
+    lat: "-1.5900",
+    lng: "103.6100",
+},
+{
+    country: "IDN",
+    name: "Balikpapan",
+    lat: "-1.2768",
+    lng: "116.8277",
+},
+{
+    country: "IDN",
+    name: "Magelang",
+    lat: "-6.3528",
+    lng: "108.3242",
+},
+{
+    country: "IDN",
+    name: "Surakarta",
+    lat: "-7.5667",
+    lng: "110.8167",
+},
+{
+    country: "IDN",
+    name: "Lembok",
+    lat: "-8.5650",
+    lng: "116.3510",
+},
+{
+    country: "IDN",
+    name: "Manado",
+    lat: "1.4931",
+    lng: "124.8413",
+},
+{
+    country: "IDN",
+    name: "Bandung",
+    lat: "-6.9120",
+    lng: "107.6097",
+},
+{
+    country: "IDN",
+    name: "Kupang",
+    lat: "-10.1702",
+    lng: "123.6077",
+},
+{
+    country: "IDN",
+    name: "Yogyakarta",
+    lat: "-7.8014",
+    lng: "110.3644",
+},
+{
+    country: "IDN",
+    name: "Mataram",
+    lat: "-8.5833",
+    lng: "116.1167",
+},
+{
+    country: "IDN",
+    name: "Jayapura",
+    lat: "-2.5330",
+    lng: "140.7170",
+},
+{
+    country: "IDN",
+    name: "Cilegon",
+    lat: "-6.0027",
+    lng: "106.0112",
+},
+{
+    country: "IDN",
+    name: "Ambon",
+    lat: "-3.7000",
+    lng: "128.1667",
+},
+{
+    country: "IDN",
+    name: "Cibinong",
+    lat: "-6.4850",
+    lng: "106.8420",
+},
+{
+    country: "IDN",
+    name: "Bengkulu",
+    lat: "-3.7956",
+    lng: "102.2592",
+},
+{
+    country: "IDN",
+    name: "Majalengka",
+    lat: "-6.8353",
+    lng: "108.2278",
+},
+{
+    country: "IDN",
+    name: "Cimanggis",
+    lat: "-6.3645",
+    lng: "106.8591",
+},
+{
+    country: "IDN",
+    name: "Tegal",
+    lat: "-6.8667",
+    lng: "109.1333",
+},
+{
+    country: "IDN",
+    name: "Pematangsiantar",
+    lat: "2.9600",
+    lng: "99.0600",
+},
+{
+    country: "IDN",
+    name: "Jember",
+    lat: "-8.1727",
+    lng: "113.6873",
+},
+{
+    country: "IDN",
+    name: "Mamuju",
+    lat: "-2.6833",
+    lng: "118.9000",
+},
+{
+    country: "IDN",
+    name: "Sorong",
+    lat: "-0.8667",
+    lng: "131.2500",
+},
+{
+    country: "IDN",
+    name: "Binjai",
+    lat: "3.5986",
+    lng: "98.4803",
+},
+{
+    country: "IDN",
+    name: "Kediri",
+    lat: "-7.8111",
+    lng: "112.0047",
+},
+{
+    country: "IDN",
+    name: "Palangkaraya",
+    lat: "-2.2100",
+    lng: "113.9200",
+},
+{
+    country: "IDN",
+    name: "Singaraja",
+    lat: "-8.1167",
+    lng: "115.0833",
+},
+{
+    country: "IDN",
+    name: "Probolinggo",
+    lat: "-7.7500",
+    lng: "113.2167",
+},
+{
+    country: "IDN",
+    name: "Madiun",
+    lat: "-7.6300",
+    lng: "111.5231",
+},
+{
+    country: "IDN",
+    name: "Ternate",
+    lat: "0.7800",
+    lng: "127.3819",
+},
+{
+    country: "IDN",
+    name: "Tarakan",
+    lat: "3.3000",
+    lng: "117.6333",
+},
+{
+    country: "IDN",
+    name: "Gorontalo",
+    lat: "0.5333",
+    lng: "123.0667",
+},
+{
+    country: "IDN",
+    name: "Batu",
+    lat: "-7.8720",
+    lng: "112.5250",
+},
+{
+    country: "IDN",
+    name: "Curug",
+    lat: "-6.3711",
+    lng: "106.8000",
+},
+{
+    country: "IDN",
+    name: "Purwakarta",
+    lat: "-6.5533",
+    lng: "107.4472",
+},
+{
+    country: "IDN",
+    name: "Salatiga",
+    lat: "-7.3247",
+    lng: "110.5444",
+},
+{
+    country: "IDN",
+    name: "Cianjur",
+    lat: "-6.8200",
+    lng: "107.1408",
+},
+{
+    country: "IDN",
+    name: "Mojokerto",
+    lat: "-7.4722",
+    lng: "112.4336",
+},
+{
+    country: "IDN",
+    name: "Payakumbuh",
+    lat: "-0.2333",
+    lng: "100.6333",
+},
+{
+    country: "IDN",
+    name: "Garut",
+    lat: "-7.2167",
+    lng: "107.9000",
+},
+{
+    country: "IDN",
+    name: "Indramayu",
+    lat: "-6.3528",
+    lng: "108.3242",
+},
+{
+    country: "IDN",
+    name: "Karanganyar",
+    lat: "-7.6033",
+    lng: "110.9778",
+},
+{
+    country: "IDN",
+    name: "Bukittinggi",
+    lat: "-0.3097",
+    lng: "100.3753",
+},
+{
+    country: "IDN",
+    name: "Merauke",
+    lat: "-8.4932",
+    lng: "140.4018",
+},
+{
+    country: "IDN",
+    name: "",
+    lat: "",
+    lng: "",
+},
+{
+    country: "IDN",
+    name: "",
+    lat: "",
+    lng: "",
+},
 ];
